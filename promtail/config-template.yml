@@ -1,0 +1,34 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://10.200.26.220:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: flamingo
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: flamingo
+          __path__: /opt/flamingo/flamingo.log
+
+  - job_name: samba
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: samba
+          __path__: /var/log/samba/log.all
+
+  - job_name: heartbeat
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: heartbeat
+          __path__: /var/log/serin-heartbeat.log
