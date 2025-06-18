@@ -1,11 +1,11 @@
 [Unit]
-Description=Promtail Agent
+Description=Promtail service
 After=network.target
 
 [Service]
-ExecStart=/opt/promtail/promtail-linux-amd64 -config.file=/opt/promtail/promtail.yml
-User=promtail
-Group=promtail
+Type=simple
+User=root
+ExecStart=/opt/promtail/promtail-linux-amd64 -config.file /opt/promtail/promtail-local-config.yaml
 Restart=on-failure
 
 [Install]

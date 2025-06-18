@@ -3,12 +3,20 @@ Description=Flamingo Honeypot
 After=network.target
 
 [Service]
-ExecStart=/opt/flamingo/flamingo
-User=flamingo
-Group=flamingo
-AmbientCapabilities=CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
+Type=simple
+ExecStart=/usr/local/bin/flamingo \
+  --protocols ssh,http,ldap,dns,ftp,snmp \
+  --ssh-ports 2222 \
+  --http-ports 8080 \
+  --ldap-ports 389 \
+  --dns-ports 53 \
+  --ftp-ports 21 \
+  --snmp-ports 161
 Restart=on-failure
+User=root
+WorkingDirectory=/var/log/flamingo
+StandardOutput=append:/var/log/flamingo/flamingo.log
+StandardError=append:/var/log/flamingo/flamingo.log
 
 [Install]
 WantedBy=multi-user.target
