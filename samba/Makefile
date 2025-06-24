@@ -2,7 +2,7 @@
 
 install:
 	@echo "➡️ Installation de Samba..."
-	sudo apt install samba samba-common samba-client -y
+	sudo dnf install -y samba samba-common samba-client
 
 	@echo "📁 Création du répertoire de partage..."
 	sudo mkdir -p /srv/samba/share
@@ -13,7 +13,7 @@ install:
 	sudo cp smb.conf /etc/samba/smb.conf
 
 	@echo "🔐 Configuration d’un utilisateur fictif Samba..."
-	sudo useradd -M -s /sbin/nologin smbcanafront || true
+	@id smbcanafront >/dev/null 2>&1 || sudo useradd -M -s /sbin/nologin smbcanafront
 	echo -e "MotDePasseBidon\nMotDePasseBidon" | sudo smbpasswd -a smbcanafront
 
 	@echo "📦 Droits sur le dossier partagé..."
@@ -22,8 +22,8 @@ install:
 	sudo chmod -R 770 /home/cana/partage
 
 	@echo "🛡️ Désactivation de NetBIOS..."
-	sudo systemctl stop nmb
-	sudo systemctl disable nmb
+	sudo systemctl stop nmb.service || true
+	sudo systemctl disable nmb.service || true
 
 	@echo "🔌 Activation de Samba..."
 	sudo systemctl daemon-reload
