@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/opt/promtail/promtail-linux-amd64 -config.file /opt/promtail/promtail-local-config.yaml
+ExecStart=/opt/promtail/promtail-linux-amd64 -config.file /opt/promtail/promtail.yml
 Restart=on-failure
 
 [Install]
