@@ -4,14 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/flamingo \
-  --protocols ssh,http,ldap,dns,ftp,snmp \
-  --ssh-ports 2222 \
-  --http-ports 8080 \
-  --ldap-ports 389 \
-  --dns-ports 53 \
-  --ftp-ports 21 \
-  --snmp-ports 161
+ExecStart=/opt/flamingo/flamingo --protocols ssh,http,ldap,dns,ftp,snmp --ssh-ports 2222 --http-ports 8080 --ldap-ports 389 --dns-ports 53 --ftp-ports 21 --snmp-ports 161
 Restart=on-failure
 User=root
 WorkingDirectory=/var/log/flamingo
